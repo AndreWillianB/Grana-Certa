@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="style.css">
+  <title>Grana Certa - Protótipo</title>
+
+  <!-- Fonte do Google -->
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Nosso arquivo de estilo -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="stage">
+    <div>
+
+      <!-- Moldura do celular -->
+      <div class="phone">
+        <div class="notch"></div>
+
+        <!-- ========== TELA 1: ONBOARDING ========== -->
+        <div class="screen active" id="onboarding">
+          <div class="content">
+            <div class="logo">Grana<span>Certa</span></div>
+            <h1 class="headline">Para de se perguntar pra onde seu dinheiro foi.</h1>
+            <p class="sub">Conecte seu cartão e a gente organiza os gastos por categoria, automaticamente.</p>
+            <button class="btn" onclick="go('dashboard')">Conectar cartão</button>
+            <p class="fineprint">Só lemos os lançamentos. Sua senha do banco nunca passa por aqui.</p>
+          </div>
+        </div>
+
+        <!-- ========== TELA 2: DASHBOARD ========== -->
+        <div class="screen" id="dashboard">
+          <div class="content">
+            <div class="topbar">Olá, João · setembro</div>
+
+            <div class="balance-label">Saldo disponível</div>
+            <div class="balance">R$ 1.240,00</div>
+
+            <!-- Gráfico de barras -->
+            <div class="bars">
+              <div class="bar-col">
+                <div class="bar" style="height:70px"></div>
+                <span class="bar-name">Mercado</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar b2" style="height:40px"></div>
+                <span class="bar-name">Transp.</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar b3" style="height:26px"></div>
+                <span class="bar-name">Contas</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar b4" style="height:82px"></div>
+                <span class="bar-name">Lazer</span>
+              </div>
+            </div>
+
+            <div class="section-title">Últimos gastos</div>
+
+            <!-- Gasto clicável (categoria errada) -->
+            <button class="tx" onclick="go('transacao')">
+              <div class="tx-icon">⛽</div>
+              <div class="tx-mid">
+                <div class="tx-name">Posto Ipiranga</div>
+                <div class="tx-cat flag">Lazer · toque para corrigir</div>
+              </div>
+              <div class="tx-val">R$120,00</div>
+            </button>
+
+            <div class="tx">
+              <div class="tx-icon">🛒</div>
+              <div class="tx-mid">
+                <div class="tx-name">Mercado Dia</div>
+                <div class="tx-cat">Mercado</div>
+              </div>
+              <div class="tx-val">R$86,40</div>
+            </div>
+
+            <div class="tx">
+              <div class="tx-icon">💡</div>
+              <div class="tx-mid">
+                <div class="tx-name">Copel</div>
+                <div class="tx-cat">Contas</div>
+              </div>
+              <div class="tx-val">R$142,00</div>
+            </div>
+          </div>
+
+          <!-- Menu de baixo -->
+          <div class="tabbar">
+            <button class="tabbtn active" onclick="go('dashboard')"><span class="ic">🏠</span>Início</button>
+            <button class="tabbtn" onclick="go('metas')"><span class="ic">🎯</span>Metas</button>
+          </div>
+        </div>
+
+        <!-- ========== TELA 3: DETALHE DO GASTO ========== -->
+        <div class="screen" id="transacao">
+          <div class="content">
+            <div class="headerbar">
+              <button class="back" onclick="go('dashboard')">←</button>
+              <h2>Detalhe do gasto</h2>
+            </div>
+
+            <div class="tx-value-big">R$ 120,00</div>
+            <div class="tx-merchant">Posto Ipiranga · 22 de setembro</div>
+
+            <div class="field-label">Categoria</div>
+            <div class="chips" id="chips">
+              <button class="chip" onclick="pick(this)">Mercado</button>
+              <button class="chip" onclick="pick(this)">Transporte</button>
+              <button class="chip sel" onclick="pick(this)">Lazer</button>
+              <button class="chip" onclick="pick(this)">Contas</button>
+              <button class="chip" onclick="pick(this)">Outros</button>
+            </div>
+
+            <button class="btn" onclick="save()">Salvar categoria</button>
+            <p class="hint">Da próxima vez que você abastecer nesse posto, a gente já reconhece sozinho.</p>
+          </div>
+        </div>
+
+        <!-- ========== TELA 4: METAS ========== -->
+        <div class="screen" id="metas">
+          <div class="content">
+            <div class="topbar">Metas</div>
+
+            <div class="goal-card">
+              <div class="goal-top">
+                <span class="goal-name">Reserva de emergência</span>
+                <span class="goal-pct">35%</span>
+              </div>
+              <div class="progress"><div style="width:35%"></div></div>
+              <div class="goal-sub">R$ 420 guardados de R$ 1.200</div>
+            </div>
+
+            <button class="btn btn-espaco">Guardar mais esse mês</button>
+
+            <div class="alert-banner">
+              <div class="alert-title">Atenção no limite</div>
+              <div class="alert-text">Você já usou 92% do valor que costuma gastar em Lazer este mês.</div>
+              <button class="alert-link" onclick="go('dashboard')">Ver gastos em Lazer</button>
+            </div>
+          </div>
+
+          <div class="tabbar">
+            <button class="tabbtn" onclick="go('dashboard')"><span class="ic">🏠</span>Início</button>
+            <button class="tabbtn active" onclick="go('metas')"><span class="ic">🎯</span>Metas</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="label">Tela ativa: <span id="labelname">Onboarding</span></div>
+    </div>
+  </div>
+
+  <!-- JavaScript: faz a troca de telas -->
+  <script>
+    // Mostra a tela escolhida e esconde as outras
+    function go(id) {
+      var telas = document.querySelectorAll('.screen');
+      for (var i = 0; i < telas.length; i++) {
+        telas[i].classList.remove('active');
+      }
+      document.getElementById(id).classList.add('active');
+
+      var nomes = {
+        onboarding: 'Onboarding / Conectar conta',
+        dashboard: 'Início (Dashboard)',
+        transacao: 'Detalhe do gasto',
+        metas: 'Metas & Alertas'
+      };
+      document.getElementById('labelname').textContent = nomes[id];
+    }
+
+    // Marca a categoria clicada
+    function pick(botao) {
+      var chips = document.querySelectorAll('#chips .chip');
+      for (var i = 0; i < chips.length; i++) {
+        chips[i].classList.remove('sel');
+      }
+      botao.classList.add('sel');
+    }
+
+    // Salva a categoria escolhida e volta pro início
+    function save() {
+      var categoria = document.querySelector('#chips .chip.sel').textContent;
+      var texto = document.querySelector('#dashboard .tx-cat.flag');
+      texto.textContent = categoria;
+      texto.classList.remove('flag');
+      go('dashboard');
+    }
+  </script>
+
+</body>
+</html>

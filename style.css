@@ -1,0 +1,473 @@
+/* ===== CORES (variáveis) ===== */
+:root {
+  --bg: #EDEFEA;
+  --surface: #FFFFFF;
+  --ink: #16241F;
+  --muted: #66766E;
+  --primary: #1B5E4F;
+  --primary-d: #123F35;
+  --accent: #D6A419;
+  --warn: #B8432A;
+  --line: #DCE3DC;
+  --chip: #F1F3EF;
+  --alert-bg: #F7E3DC;
+}
+
+/* Modo escuro (se o celular estiver no escuro) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0F1512;
+    --surface: #182420;
+    --ink: #EAEFEC;
+    --muted: #93A39B;
+    --line: #2A3730;
+    --chip: #20302A;
+    --alert-bg: #3A241D;
+  }
+}
+
+/* ===== GERAL ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 28px 16px;
+  font-family: 'Manrope', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  display: flex;
+  justify-content: center;
+}
+
+.stage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  justify-content: center;
+  max-width: 1000px;
+}
+
+/* ===== MOLDURA DO CELULAR ===== */
+.phone {
+  width: 360px;
+  height: 740px;
+  background: var(--surface);
+  border-radius: 34px;
+  border: 8px solid var(--ink);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 18px 40px rgba(15, 25, 20, 0.18);
+}
+
+.notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 18px;
+  background: var(--ink);
+  border-radius: 0 0 12px 12px;
+  z-index: 5;
+}
+
+.label {
+  width: 360px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+/* ===== TELAS (só a .active aparece) ===== */
+.screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.screen.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 34px 20px 20px;
+}
+
+.content::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===== BOTÃO PRINCIPAL ===== */
+.btn {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 22px;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn:active {
+  background: var(--primary-d);
+}
+
+.btn-espaco {
+  margin-bottom: 22px;
+}
+
+/* ===== TELA 1: ONBOARDING ===== */
+#onboarding .content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+  padding: 40px 28px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 40px;
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+.headline {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 0 0 12px;
+}
+
+.sub {
+  color: var(--muted);
+  font-size: 14.5px;
+  line-height: 1.5;
+  margin: 0 0 32px;
+  max-width: 270px;
+}
+
+.fineprint {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 18px;
+  max-width: 250px;
+  line-height: 1.5;
+}
+
+/* ===== TELA 2: DASHBOARD ===== */
+.topbar {
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.balance-label {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.balance {
+  font-size: 32px;
+  font-weight: 800;
+  margin: 2px 0 20px;
+}
+
+/* Gráfico de barras */
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  height: 90px;
+  margin-bottom: 8px;
+}
+
+.bar-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.bar {
+  width: 100%;
+  border-radius: 6px 6px 0 0;
+  background: var(--primary);
+}
+
+.bar.b2 { background: var(--accent); }
+.bar.b3 { background: #8FAF9D; }
+.bar.b4 { background: var(--warn); opacity: 0.85; }
+
+.bar-name {
+  font-size: 10.5px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.section-title {
+  font-weight: 700;
+  font-size: 14.5px;
+  margin: 22px 0 10px;
+}
+
+/* Lista de gastos */
+.tx {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 0;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  background: none;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.tx-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--chip);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.tx-mid {
+  flex: 1;
+}
+
+.tx-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tx-cat {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.tx-cat.flag {
+  color: var(--warn);
+  font-weight: 700;
+}
+
+.tx-val {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Menu de baixo */
+.tabbar {
+  display: flex;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  padding: 10px 0;
+}
+
+.tabbtn {
+  flex: 1;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.tabbtn.active {
+  color: var(--primary);
+}
+
+.tabbtn .ic {
+  font-size: 19px;
+}
+
+/* ===== TELA 3: DETALHE DO GASTO ===== */
+.headerbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+}
+
+.headerbar h2 {
+  font-size: 15px;
+  margin: 0;
+  font-weight: 700;
+}
+
+.back {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--ink);
+  padding: 4px;
+}
+
+.tx-value-big {
+  font-size: 30px;
+  font-weight: 800;
+  text-align: center;
+  margin: 22px 0 2px;
+}
+
+.tx-merchant {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13.5px;
+  margin-bottom: 26px;
+}
+
+.field-label {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 26px;
+}
+
+.chip {
+  padding: 9px 14px;
+  border-radius: 20px;
+  background: var(--chip);
+  font-size: 13px;
+  font-weight: 600;
+  border: 2px solid transparent;
+  cursor: pointer;
+  color: var(--ink);
+  font-family: inherit;
+}
+
+.chip.sel {
+  background: var(--primary);
+  color: #fff;
+}
+
+.hint {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 16px;
+  line-height: 1.5;
+}
+
+/* ===== TELA 4: METAS ===== */
+.goal-card {
+  background: var(--chip);
+  border-radius: 16px;
+  padding: 18px;
+  margin-top: 14px;
+  margin-bottom: 16px;
+}
+
+.goal-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+
+.goal-name {
+  font-weight: 700;
+  font-size: 14.5px;
+}
+
+.goal-pct {
+  color: var(--primary);
+  font-weight: 800;
+  font-size: 14.5px;
+}
+
+.progress {
+  height: 8px;
+  background: var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progress > div {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 6px;
+}
+
+.goal-sub {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+/* Alerta de limite */
+.alert-banner {
+  background: var(--alert-bg);
+  border: 1px solid var(--warn);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-top: 6px;
+}
+
+.alert-title {
+  font-weight: 700;
+  font-size: 13.5px;
+  color: var(--warn);
+  margin-bottom: 4px;
+}
+
+.alert-text {
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.alert-link {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--warn);
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: 8px;
+  cursor: pointer;
+  font-family: inherit;
+}
